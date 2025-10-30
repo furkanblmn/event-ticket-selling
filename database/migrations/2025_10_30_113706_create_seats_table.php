@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
             $table->foreignId('venue_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('ticket_category_id')->constrained()->cascadeOnDelete();
             $table->string('seat_number');
             $table->string('section')->nullable();
             $table->string('row')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

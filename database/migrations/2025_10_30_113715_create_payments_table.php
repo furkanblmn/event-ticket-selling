@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->foreignId('order_id')->constrained()->cascadeOnDelete();
             $table->decimal('total_amount', 10, 2);
             $table->string('cc_number');
             $table->string('cc_exp_month');
             $table->string('cc_exp_year');
             $table->string('cc_cvv');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

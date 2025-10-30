@@ -19,20 +19,20 @@ class VenueSeeder extends Seeder
                 'address' => 'Harbiye, Darülbedayi Cd. No:8, 34367 Şişli/İstanbul',
             ],
             [
-                'name' => 'Zorlu PSM',
+                'name' => 'Zorlu PSM Sahne',
                 'address' => 'Levazım, Koru Sk. No:2, 34340 Beşiktaş/İstanbul',
             ],
             [
-                'name' => 'Ülker Sports Arena',
-                'address' => 'Huzur, Şht. Muhtar Cd. No:82, 34396 Sarıyer/İstanbul',
+                'name' => 'CinemaMaximum Marmara Park',
+                'address' => 'Beylikdüzü, Marmara Park AVM, 34520 Beylikdüzü/İstanbul',
             ],
             [
-                'name' => 'Volkswagen Arena',
-                'address' => 'Türk Telekom Stadyumu, Ayazağa, 34485 Sarıyer/İstanbul',
+                'name' => 'Cemal Reşit Rey Konser Salonu',
+                'address' => 'Harbiye, Darülbedayi Cd., 34367 Şişli/İstanbul',
             ],
             [
-                'name' => 'Harbiye Cemil Topuzlu Açıkhava Tiyatrosu',
-                'address' => 'Harbiye, Taşkışla Cd., 34367 Şişli/İstanbul',
+                'name' => 'Kadıköy Sineması',
+                'address' => 'Caferağa, Bahariye Cd. No:32, 34710 Kadıköy/İstanbul',
             ],
         ];
 

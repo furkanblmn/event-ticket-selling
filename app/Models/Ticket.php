@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ticket extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'event_id',
         'category_id',
@@ -32,5 +35,15 @@ class Ticket extends Model
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function getPriceAttribute(): float
+    {
+        return $this->event
+            ->ticketCategories()
+            ->where('ticket_categories.id', $this->category_id)
+            ->first()
+            ->pivot
+            ->price;
     }
 }

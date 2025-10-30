@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image_url');
             $table->dateTime('event_date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

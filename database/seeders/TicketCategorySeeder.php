@@ -19,10 +19,6 @@ class TicketCategorySeeder extends Seeder
                 'price' => 150.00,
             ],
             [
-                'name' => 'Protokol',
-                'price' => 500.00,
-            ],
-            [
                 'name' => 'VIP',
                 'price' => 350.00,
             ],
@@ -33,10 +29,6 @@ class TicketCategorySeeder extends Seeder
             [
                 'name' => 'Balkon',
                 'price' => 200.00,
-            ],
-            [
-                'name' => 'Kale Arkası',
-                'price' => 120.00,
             ],
         ];
 

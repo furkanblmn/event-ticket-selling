@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('seat_id')->nullable()->constrained('seats')->onDelete('set null');
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
+            $table->unique(['event_id', 'seat_id'], 'unique_event_seat');
         });
     }
 
