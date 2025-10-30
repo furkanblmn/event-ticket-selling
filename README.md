@@ -86,8 +86,8 @@ Modern ve kullanıcı dostu bir online bilet satış platformu. Konser, tiyatro,
 ### Adım 1: Projeyi Klonlayın
 
 ```bash
-git clone <repository-url>
-cd derslig
+git clone https://github.com/furkanblmn/event-ticket-selling.git
+cd event-ticket-selling
 ```
 
 ### Adım 2: Bağımlılıkları Yükleyin
