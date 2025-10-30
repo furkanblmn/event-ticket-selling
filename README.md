@@ -1,59 +1,346 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎫 Bilet Satış Sistemi
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Modern ve kullanıcı dostu bir online bilet satış platformu. Konser, tiyatro, sinema ve diğer etkinlikler için bilet satışı yapmanızı sağlar.
 
-## About Laravel
+## 📋 İçindekiler
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Özellikler](#-özellikler)
+- [Teknolojiler](#-teknolojiler)
+- [Kurulum](#-kurulum)
+- [Kullanım](#-kullanım)
+- [Mail Yapılandırması](#-mail-yapılandırması)
+- [Veritabanı Yapısı](#-veritabanı-yapısı)
+- [Önemli Notlar](#-önemli-notlar)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Özellikler
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🎯 Temel Özellikler
 
-## Learning Laravel
+- **Etkinlik Yönetimi**
+  - Etkinlik listeleme ve detay sayfaları
+  - Tarih ve mekan bilgileri
+  - Etkinlik durumu (Satışta, Tükendi, Tarihi Geçmiş)
+  - Etkinlik görselleri
+  
+- **Gelişmiş Arama**
+  - Etkinlik başlığı, açıklama, mekan adı ve adrese göre arama
+  - Gerçek zamanlı arama sonuçları
+  
+- **Koltuk Seçimi**
+  - İnteraktif koltuk haritası
+  - Manuel ve otomatik koltuk seçimi
+  - Zoom in/out özelliği
+  - Gerçek zamanlı müsaitlik kontrolü
+  - Kategori bazlı koltuk gösterimi
+  
+- **Bilet Kategorileri**
+  - VIP
+  - Genel Giriş
+  - Öğrenci
+  - Balkon
+  - Her etkinlik için özelleştirilebilir fiyatlandırma
+  
+- **Ödeme Sistemi**
+  - Kredi kartı ile ödeme (simülasyon)
+  - Müşteri bilgileri formu
+  - Otomatik form validasyonu
+  - Başarılı ödeme onay sayfası
+  
+- **Stok Yönetimi**
+  - Gerçek zamanlı stok takibi
+  - Kategori bazlı stok kontrolü
+  - Soft delete desteği (iptal edilen biletler stoka geri döner)
+  - Database constraint ile çift satış önleme
+  
+- **E-posta Bildirimleri**
+  - Sipariş onay maili
+  - Bilet detayları
+  - Modern ve responsive mail tasarımı
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠 Teknolojiler
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Backend
+- **PHP 8.3+** - Backend dili
+- **Laravel 12.x** - PHP Framework
+- **MySQL** - Veritabanı
 
-## Laravel Sponsors
+### Frontend
+- **Blade Template Engine** - View katmanı
+- **Tailwind CSS** - Styling (CDN)
+- **Vanilla JavaScript** - İnteraktif özellikler
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Diğer
+- **Carbon** - Tarih işlemleri (Türkçe lokalizasyon)
+- **Laravel Mail** - E-posta gönderimi
+- **Eloquent ORM** - Veritabanı işlemleri
 
-### Premium Partners
+## 📦 Kurulum
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Gereksinimler
 
-## Contributing
+- PHP >= 8.3
+- Composer
+- MySQL >= 8.0
+- Node.js & NPM (opsiyonel)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Adım 1: Projeyi Klonlayın
 
-## Code of Conduct
+```bash
+git clone <repository-url>
+cd derslig
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Adım 2: Bağımlılıkları Yükleyin
 
-## Security Vulnerabilities
+```bash
+composer install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Adım 3: Ortam Değişkenlerini Ayarlayın
 
-## License
+`.env.example` dosyasını `.env` olarak kopyalayın:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+cp .env.example .env
+```
+
+`.env` dosyasında veritabanı ayarlarınızı yapın:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=bilet_sistemi
+DB_USERNAME=root
+DB_PASSWORD=your_password
+```
+
+### Adım 4: Veritabanını Oluşturun
+
+MySQL'de yeni bir veritabanı oluşturun:
+
+```sql
+CREATE DATABASE bilet_sistemi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+### Adım 5: Projeyi Başlatın (Tek Komut)
+
+```bash
+php artisan app:set
+```
+
+Bu komut şunları yapar:
+- ✅ Uygulama için benzersiz bir key oluşturur
+- ✅ Tüm migration'ları çalıştırır
+- ✅ Veritabanını örnek verilerle doldurur (seeders)
+- ✅ Projeyi kullanıma hazır hale getirir
+
+**Alternatif olarak manuel kurulum:**
+
+```bash
+php artisan key:generate
+php artisan migrate:fresh --seed
+```
+
+### Adım 6: Geliştirme Sunucusunu Başlatın
+
+```bash
+php artisan serve
+```
+
+Uygulama şu adreste çalışacaktır: `http://localhost:8000`
+
+## 🚀 Kullanım
+
+### 1. Etkinlik Listeleme
+
+Ana sayfa (`/`) tüm etkinlikleri listeler. Arama çubuğunu kullanarak etkinlik, mekan veya sanatçı araması yapabilirsiniz.
+
+### 2. Etkinlik Detayı
+
+Bir etkinliğe tıkladığınızda:
+- Etkinlik detaylarını görebilirsiniz
+- Bilet kategorisi seçebilirsiniz
+- Her kategorinin fiyat ve stok durumunu görebilirsiniz
+
+### 3. Koltuk Seçimi
+
+"Bilet Al" butonuna tıkladıktan sonra:
+- Koltuk haritasında yeşil koltuklar müsait
+- Gri koltuklar dolu
+- Açık gri koltuklar başka kategoriye ait
+- Manuel seçim: Koltuklara tıklayarak seçim yapın
+- Otomatik seçim: Bilet sayısı girerek otomatik seçim yaptırın
+- Zoom: +/- butonları ile haritayı büyütüp küçültebilirsiniz
+
+### 4. Ödeme
+
+Koltukları seçtikten sonra:
+- Müşteri bilgilerini girin
+- Kredi kartı bilgilerini girin (test amaçlı)
+- Ödemeyi tamamlayın
+
+### 5. Sipariş Onayı
+
+Başarılı ödeme sonrası:
+- Sipariş özeti görüntülenir
+- E-posta adresinize onay maili gönderilir
+
+## 📧 Mail Yapılandırması
+
+### Mailtrap Kullanımı
+
+Test amaçlı mail gönderimleri için [Mailtrap](https://mailtrap.io):
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=your-mailtrap-username
+MAIL_PASSWORD=your-mailtrap-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=noreply@bilet-sistemi.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+Değişiklikleri uygulamak için:
+
+```bash
+php artisan config:clear
+```
+
+## 🗄️ Veritabanı Yapısı
+
+### Ana Tablolar
+
+- **venues** - Etkinlik mekanları
+- **events** - Etkinlikler
+- **ticket_categories** - Bilet kategorileri
+- **seats** - Koltuklar
+- **orders** - Müşteri siparişleri
+- **tickets** - Satılan biletler
+- **payments** - Ödeme bilgileri
+- **event_ticket_category** - Pivot tablo (etkinlik-kategori-fiyat)
+
+### İlişkiler
+
+```
+venues 1 ──────→ * events
+events * ──────→ * ticket_categories (pivot: event_ticket_category)
+events 1 ──────→ * tickets
+venues 1 ──────→ * seats
+seats  1 ──────→ * tickets
+orders 1 ──────→ * tickets
+orders 1 ──────→ 1 payments
+ticket_categories 1 ──────→ * tickets
+```
+
+### Örnek Veriler (Seeders)
+
+Sistem şu örnek verilerle birlikte gelir:
+
+**Mekanlar:**
+- Zorlu PSM
+- İş Sanat
+- Cemal Reşit Rey
+- Açıkhava Tiyatrosu
+
+**Etkinlikler:**
+- Sezen Aksu Konseri
+- Teoman Konseri
+- Tarkan Konseri
+- Cem Yılmaz Stand-up
+- Hamlet (Tiyatro)
+- Kuğu Gölü (Bale)
+- Film Gösterimleri
+
+**Kategoriler:**
+- VIP
+- Genel Giriş
+- Öğrenci
+- Balkon
+
+Her kategori için **40 koltuk** (4 section × 4 row × 10 seat)
+
+## 📝 Önemli Notlar
+
+### Stok Yönetimi
+
+Sistem **gerçek zamanlı stok hesaplama** kullanır:
+
+- ✅ Her kategori için maksimum 40 koltuk
+- ✅ Satılan biletler `tickets` tablosundan sayılır
+- ✅ Kalan stok = 40 - satılan bilet
+- ✅ Soft delete: İptal edilen biletler stoka geri döner
+
+### Çift Satış Önleme
+
+- ✅ Backend'de koltuk müsaitlik kontrolü
+- ✅ Database'de unique constraint (`event_id` + `seat_id`)
+- ✅ Race condition koruması
+
+### Tarih Formatı
+
+Sistem Türkçe tarih formatı kullanır:
+- "30 Ekim 2025 Perşembe - 20:00"
+
+### Kod Standartları
+
+- ✅ PHPDoc blokları
+- ✅ Return type hints
+- ✅ Camel case naming
+- ✅ SOLID prensipleri
+- ✅ Clean code practices
+
+## 🎨 Özelleştirme
+
+### Koltuk Sayısını Değiştirme
+
+`app/Models/Event.php` dosyasında:
+
+```php
+public const SEATS_PER_CATEGORY = 40; // İstediğiniz sayıya değiştirin
+```
+
+Ardından seeder'ları güncelleyin ve veritabanını sıfırlayın:
+
+```bash
+php artisan app:set
+```
+
+### Yeni Bilet Kategorisi Ekleme
+
+1. `database/seeders/TicketCategorySeeder.php` dosyasına yeni kategori ekleyin
+2. `database/seeders/SeatSeeder.php` dosyasında section mapping ekleyin
+3. `database/seeders/EventTicketCategorySeeder.php` dosyasında fiyatlandırma ekleyin
+
+### Mail Template Özelleştirme
+
+`resources/views/emails/order-confirmation.blade.php` dosyasını düzenleyin.
+
+## 🐛 Sorun Giderme
+
+### "Stock is 0 but tickets are available"
+
+```bash
+php artisan app:set
+```
+
+### "Duplicate seat purchase"
+
+```bash
+# Duplicate kayıtları temizle
+php artisan tinker
+# Tinker'da:
+DB::table('tickets')->whereNotNull('seat_id')->groupBy('event_id', 'seat_id')->havingRaw('COUNT(*) > 1')->delete();
+```
+
+### "Mail not sending"
+
+1. `.env` dosyasında mail ayarlarını kontrol edin
+2. Config cache'i temizleyin: `php artisan config:clear`
+3. Log dosyasını kontrol edin: `storage/logs/laravel.log`
+
+## 📄 Lisans
+
+Bu proje eğitim amaçlıdır.
