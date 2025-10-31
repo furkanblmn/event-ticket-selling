@@ -53,9 +53,11 @@ Modern ve kullanıcı dostu bir online bilet satış platformu. Konser, tiyatro,
   - Database constraint ile çift satış önleme
   
 - **E-posta Bildirimleri**
+  - Asenkron mail gönderimi (Queue sistemi)
   - Sipariş onay maili
   - Bilet detayları
   - Modern ve responsive mail tasarımı
+  - 3 deneme ve 10 saniye backoff ile otomatik yeniden deneme
 
 ## 🛠 Teknolojiler
 
@@ -72,6 +74,7 @@ Modern ve kullanıcı dostu bir online bilet satış platformu. Konser, tiyatro,
 ### Diğer
 - **Carbon** - Tarih işlemleri (Türkçe lokalizasyon)
 - **Laravel Mail** - E-posta gönderimi
+- **Laravel Queue** - Asenkron işlemler (Mail)
 - **Eloquent ORM** - Veritabanı işlemleri
 
 ## 📦 Kurulum
@@ -133,13 +136,23 @@ Bu komut şunları yapar:
 - ✅ Uygulama için benzersiz bir key oluşturur
 - ✅ Tüm migration'ları çalıştırır
 - ✅ Veritabanını örnek verilerle doldurur (seeders)
+- ✅ Cache'leri temizler (config, cache, route, view)
+- ✅ Queue worker'ı başlatır (opsiyonel, kullanıcıya sorar)
 - ✅ Projeyi kullanıma hazır hale getirir
+
+**Queue worker'ı otomatik başlatmak istemiyorsanız:**
+
+```bash
+php artisan app:set --skip-queue
+```
 
 **Alternatif olarak manuel kurulum:**
 
 ```bash
 php artisan key:generate
 php artisan migrate:fresh --seed
+php artisan config:clear
+php artisan queue:work &
 ```
 
 ### Adım 6: Geliştirme Sunucusunu Başlatın
@@ -149,6 +162,35 @@ php artisan serve
 ```
 
 Uygulama şu adreste çalışacaktır: `http://localhost:8000`
+
+### Adım 7: Queue Worker Durumu (Opsiyonel)
+
+Eğer `app:set` komutu çalıştırılırken queue worker'ı başlatmadıysanız, mail gönderimlerinin çalışması için queue worker'ı manuel olarak başlatmanız gerekir.
+
+**Yeni bir terminal penceresinde:**
+
+```bash
+php artisan queue:work
+```
+
+**Veya arka planda çalıştırmak için:**
+
+```bash
+php artisan queue:work --daemon &
+```
+
+**Queue worker'ın çalışıp çalışmadığını kontrol etmek için:**
+
+```bash
+# Process listesini kontrol edin
+ps aux | grep "queue:work"
+
+# Veya bir test maili gönderin ve jobs tablosunu kontrol edin
+php artisan tinker
+>>> App\Models\Order::first()->email;
+```
+
+**Production ortamında** Supervisor kullanmanız önerilir.
 
 ## 🚀 Kullanım
 
@@ -188,7 +230,19 @@ Başarılı ödeme sonrası:
 
 ## 📧 Mail Yapılandırması
 
-### Mailtrap Kullanımı
+### Mail Ayarları
+
+Sistem asenkron mail gönderimi kullanır. Mail gönderimleri queue sistemine eklenir ve arka planda işlenir.
+
+#### Queue Yapılandırması
+
+`.env` dosyasında queue ayarlarını yapın:
+
+```env
+QUEUE_CONNECTION=database
+```
+
+#### Mailtrap Kullanımı
 
 Test amaçlı mail gönderimleri için [Mailtrap](https://mailtrap.io):
 
@@ -209,6 +263,22 @@ Değişiklikleri uygulamak için:
 php artisan config:clear
 ```
 
+#### Queue Worker'ı Çalıştırma
+
+Mail gönderimleri için queue worker'ın çalışıyor olması gerekir:
+
+```bash
+# Development ortamı için
+php artisan queue:work
+
+# Arka planda çalıştırma
+php artisan queue:work --daemon &
+
+# Belirli bir queue için
+php artisan queue:work --queue=default,emails
+```
+
+
 ## 🗄️ Veritabanı Yapısı
 
 ### Ana Tablolar
@@ -221,6 +291,8 @@ php artisan config:clear
 - **tickets** - Satılan biletler
 - **payments** - Ödeme bilgileri
 - **event_ticket_category** - Pivot tablo (etkinlik-kategori-fiyat)
+- **jobs** - Queue işleri (mail gönderimleri vb.)
+- **failed_jobs** - Başarısız queue işleri
 
 ### İlişkiler
 
@@ -337,9 +409,27 @@ DB::table('tickets')->whereNotNull('seat_id')->groupBy('event_id', 'seat_id')->h
 
 ### "Mail not sending"
 
-1. `.env` dosyasında mail ayarlarını kontrol edin
-2. Config cache'i temizleyin: `php artisan config:clear`
-3. Log dosyasını kontrol edin: `storage/logs/laravel.log`
+1. Queue worker'ın çalıştığından emin olun: `php artisan queue:work`
+2. `.env` dosyasında mail ayarlarını kontrol edin
+3. Queue connection'ını kontrol edin: `QUEUE_CONNECTION=database`
+4. Config cache'i temizleyin: `php artisan config:clear`
+5. Log dosyalarını kontrol edin:
+   - `storage/logs/laravel.log` - Genel loglar
+   - `jobs` tablosu - Bekleyen işler
+   - `failed_jobs` tablosu - Başarısız işler
+
+### "Queue jobs not processing"
+
+```bash
+# Queue worker'ı yeniden başlatın
+php artisan queue:restart
+
+# Failed jobs'ları yeniden deneyin
+php artisan queue:retry all
+
+# Failed jobs'ları temizleyin
+php artisan queue:flush
+```
 
 ## 📄 Lisans
 

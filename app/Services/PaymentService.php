@@ -179,15 +179,15 @@ class PaymentService
     private function sendConfirmationEmail(Order $order): void
     {
         try {
-            Mail::to($order->email)->send(new OrderConfirmationMail($order));
+            Mail::to($order->email)->queue(new OrderConfirmationMail($order));
 
-            AppLogger::info('Confirmation email sent', [
+            AppLogger::info('Confirmation email queued', [
                 'channel' => 'payment',
                 'order_id' => $order->id,
                 'customer_email' => $order->email,
             ]);
         } catch (Throwable $e) {
-            AppLogger::error('Failed to send confirmation email', $e, [
+            AppLogger::error('Failed to queue confirmation email', $e, [
                 'channel' => 'payment',
                 'order_id' => $order->id,
                 'customer_email' => $order->email,
